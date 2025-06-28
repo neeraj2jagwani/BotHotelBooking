@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel California - Online Booking</title>
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .chat-container {
+            max-width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chat-header {
+            background-color: #3f51b5;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #f5f7fa;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.4;
+            position: relative;
+            word-wrap: break-word;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: white;
+            border-bottom-right-radius: 4px;
+            margin-left: 20%;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: white;
+            color: #212529;
+            border-bottom-left-radius: 4px;
+            border: 1px solid #e9ecef;
+            margin-right: 20%;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background-color: #fff;
+            border-top: 1px solid #e9ecef;
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 1em;
+        }
+
+        #send-button {
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #send-button:hover {
+            background-color: #303f9f;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background-color: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            border-bottom-left-radius: 4px;
+            border: 1px solid #e9ecef;
+            margin-right: 20%;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Booking Form Styles */
+        .booking-form {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .booking-form h4 {
+            margin-top: 0;
+            color: #3f51b5;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input[type="date"],
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #3e8e41;
+        }
+
+        .submit-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .booking-form-container {
+            display: none; /* Hidden by default */
+        }
+        
+        .booking-form {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .price-summary {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .price-summary div {
+            margin: 8px 0;
+        }
+
+        .total-price {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 12px !important;
+            padding-top: 8px;
+            border-top: 1px solid #ddd;
+        }
+
+        .booking-details {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .booking-details p {
+            margin: 8px 0;
+        }
+
+        .total-amount {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2e7d32;
+            margin-top: 12px !important;
+            padding-top: 8px;
+            border-top: 1px solid #ddd;
+        }
+        
+        /* Success message */
+        .success-message {
+            color: #388e3c;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            Hotel California - Booking Assistant
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">
+                <p>Welcome to <strong>Hotel California</strong>! 🌴</p>
+                <p>I'm your personal booking assistant. How can I help you today? You can:</p>
+                <ul>
+                    <li>Book a room</li>
+                    <li>Check room availability</li>
+                    <li>Ask about our amenities</li>
+                </ul>
+            </div>
+        </div>
+        <div class="typing-indicator" id="typing-indicator">
+            Typing...
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your message here..." onkeypress="handleKeyPress(event)">
+            <button id="send-button" onclick="sendMessage()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            const chatForm = document.getElementById('chat-form');
+            
+            // Generate a unique session ID for this chat if it doesn't exist
+            let sessionId = localStorage.getItem('chatSessionId');
+            if (!sessionId) {
+                sessionId = 'session-' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('chatSessionId', sessionId);
+            }
+            
+            // Auto-scroll chat to bottom
+            function scrollToBottom() {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            function addMessage(message, isUser, isForm = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+                
+                if (isForm) {
+                    messageDiv.innerHTML = message; // Allow HTML for forms
+                } else {
+                    // Convert newlines to <br> and preserve other HTML
+                    messageDiv.innerHTML = message.replace(/\n/g, '<br>');
+                }
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // If we just added a form, attach event listeners
+                if (isForm) {
+                    const form = messageDiv.querySelector('form');
+                    if (form) {
+                        form.addEventListener('submit', handleFormSubmit);
+                    }
+                }
+            }
+
+            function showTypingIndicator(show) {
+                typingIndicator.style.display = show ? 'block' : 'none';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            // Keep track of the current booking form
+            let currentBookingForm = null;
+
+            function hideBookingForm() {
+                if (currentBookingForm) {
+                    // Remove the form from the DOM
+                    currentBookingForm.remove();
+                    currentBookingForm = null;
+                }
+            }
+
+            function showBookingForm(isAvailabilityCheck = false) {
+                // Only create a new form if we don't have one or if the current one is hidden/removed
+                if (!currentBookingForm || !document.body.contains(currentBookingForm)) {
+                    // Hide any existing booking form
+                    hideBookingForm();
+                    
+                    // Create new form container
+                    const formContainer = document.createElement('div');
+                    formContainer.className = 'message bot-message booking-form-container';
+                    formContainer.id = 'booking-form-container';
+                    
+                    // Form title and buttons
+                    const formTitle = isAvailabilityCheck ? 'Check Room Availability' : 'Book a Room';
+                
+                    // Always show personal info fields
+                    const showPersonalInfo = `
+                                <div class="form-group">
+                                    <label for="guest_name">Full Name:</label>
+                                    <input type="text" id="guest_name" name="guest_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>`;
+                
+                    formContainer.innerHTML = `
+                        <div class="booking-form">
+                            <h4>${formTitle}</h4>
+                            <form id="booking-form">
+                                <div class="form-group">
+                                    <label for="check-in">Check-in Date:</label>
+                                    <input type="date" id="check-in" name="check_in" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="check-out">Check-out Date:</label>
+                                    <input type="date" id="check-out" name="check_out" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Room Type:</label>
+                                    <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 5px;">
+                                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                            <input type="radio" name="room_type" value="Standard" checked required>
+                                            Standard Room
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                            <input type="radio" name="room_type" value="Deluxe" required>
+                                            Deluxe Room
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                            <input type="radio" name="room_type" value="Suite" required>
+                                            Suite
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="guests">Number of Guests:</label>
+                                    <input type="number" id="guests" name="guests" min="1" max="10" value="1" required>
+                                </div>
+                                ${showPersonalInfo}
+                                <div class="price-summary">
+                                    <div>Price per night: <span id="price-per-night">$100</span></div>
+                                    <div>Number of nights: <span id="num-nights">0</span></div>
+                                    <div class="total-price">Total: <span id="total-price">$0</span></div>
+                                </div>
+                                <div class="form-buttons" style="display: flex; gap: 10px; margin-top: 15px;">
+                                    <button type="button" id="check-availability-btn" class="submit-btn" style="background-color: #3f51b5; flex: 1;">
+                                        Check Availability
+                                    </button>
+                                    <button type="submit" class="submit-btn" style="flex: 1; background-color: #4CAF50;">
+                                        Book Now
+                                    </button>
+                                </div>
+                            </form>
+                        </div>`;
+                    
+                    // If this is a new form, add it to the DOM
+                    if (!document.getElementById('booking-form-container')) {
+                        chatMessages.appendChild(formContainer);
+                    }
+                    
+                    // Show the form
+                    formContainer.style.display = 'block';
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Update the current booking form reference
+                    currentBookingForm = formContainer;
+                    
+                    // Get the form element
+                    const form = formContainer.querySelector('#booking-form');
+                    
+                    // Set up form submission handlers
+                    form.onsubmit = function(e) {
+                        e.preventDefault();
+                        handleBookingSubmit(e);
+                        return false;
+                    };
+                    
+                    // Add click handler for check availability button
+                    const checkAvailabilityBtn = form.querySelector('#check-availability-btn');
+                    if (checkAvailabilityBtn) {
+                        checkAvailabilityBtn.onclick = function(e) {
+                            e.preventDefault();
+                            checkAvailability(form);
+                            return false;
+                        };
+                    }
+                    
+                    // Set minimum date to today
+                    const today = new Date().toISOString().split('T')[0];
+                    const checkInInput = form.querySelector('#check-in');
+                    const checkOutInput = form.querySelector('#check-out');
+                    
+                    checkInInput.min = today;
+                    checkOutInput.min = today;
+                    
+                    // Function to update price calculation
+                    function updatePriceCalculation() {
+                        const roomType = form.querySelector('input[name="room_type"]:checked').value;
+                        const checkIn = checkInInput.value;
+                        const checkOut = checkOutInput.value;
+                        
+                        if (!checkIn || !checkOut) return;
+                        
+                        const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+                        const startDate = new Date(checkIn);
+                        const endDate = new Date(checkOut);
+                        const nights = Math.round(Math.abs((startDate - endDate) / oneDay));
+                        
+                        const prices = {
+                            'Standard': 100,
+                            'Deluxe': 150,
+                            'Suite': 250
+                        };
+                        
+                        const pricePerNight = prices[roomType] || 0;
+                        const totalPrice = pricePerNight * nights;
+                        
+                        document.getElementById('price-per-night').textContent = `$${pricePerNight}`;
+                        document.getElementById('num-nights').textContent = nights;
+                        document.getElementById('total-price').textContent = `$${totalPrice}`;
+                    }
+                    
+                    // Set up event listeners for price calculation
+                    form.querySelectorAll('input[name="room_type"]').forEach(radio => {
+                        radio.addEventListener('change', updatePriceCalculation);
+                    });
+                    
+                    // Update check-out min date and price when check-in changes
+                    checkInInput.addEventListener('change', function() {
+                        checkOutInput.min = this.value;
+                        if (checkOutInput.value && new Date(checkOutInput.value) < new Date(this.value)) {
+                            checkOutInput.value = '';
+                        }
+                        updatePriceCalculation();
+                    });
+                
+                    // Update price when check-out changes
+                    checkOutInput.addEventListener('change', updatePriceCalculation);
+                    
+                    // Initial price calculation
+                    updatePriceCalculation();
+                }
+            }
+            
+            function checkAvailability(form) {
+                const formData = new FormData(form);
+                const bookingData = Object.fromEntries(formData.entries());
+                
+                // Validate required fields
+                if (!bookingData.check_in || !bookingData.check_out || !bookingData.room_type) {
+                    alert('Please fill in check-in, check-out dates and select a room type');
+                    return false;
+                }
+                
+                // Show loading state
+                const checkBtn = form.querySelector('#check-availability-btn');
+                const originalBtnText = checkBtn.textContent;
+                checkBtn.disabled = true;
+                checkBtn.textContent = 'Checking...';
+                
+                // Send availability check request to server
+                fetch('/api/check-availability', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        check_in: bookingData.check_in,
+                        check_out: bookingData.check_out,
+                        room_type: bookingData.room_type
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    
+                    // Show availability message
+                    if (data.available) {
+                        showAvailabilityMessage(`✅ ${data.message}`, true);
+                    } else {
+                        showAvailabilityMessage(`⚠️ ${data.message}`, false);
+                    }
+                })
+                .catch(error => {
+                    alert(`Availability check failed: ${error.message}`);
+                })
+                .finally(() => {
+                    checkBtn.disabled = false;
+                    checkBtn.textContent = originalBtnText;
+                });
+            }
+            
+            function showAvailabilityMessage(message, isAvailable) {
+                // Remove any existing availability message
+                const existingMessage = document.querySelector('.availability-message');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+                
+                // Create and show new message
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `availability-message ${isAvailable ? 'available' : 'unavailable'}`;
+                messageDiv.style.marginTop = '10px';
+                messageDiv.style.padding = '10px';
+                messageDiv.style.borderRadius = '4px';
+                messageDiv.style.backgroundColor = isAvailable ? '#e8f5e9' : '#ffebee';
+                messageDiv.style.borderLeft = `4px solid ${isAvailable ? '#4caf50' : '#f44336'}`;
+                messageDiv.textContent = message;
+                
+                // Insert after the price summary
+                const priceSummary = document.querySelector('.price-summary');
+                if (priceSummary) {
+                    priceSummary.parentNode.insertBefore(messageDiv, priceSummary.nextSibling);
+                    
+                    // Scroll to show the message
+                    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+            
+            function handleBookingSubmit(event) {
+                event.preventDefault();
+                
+                const form = event.target;
+                const formData = new FormData(form);
+                const bookingData = Object.fromEntries(formData.entries());
+                
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Booking...';
+                
+                // Ensure we have all required fields
+                if (!bookingData.check_in || !bookingData.check_out || !bookingData.room_type || 
+                    !bookingData.guest_name || !bookingData.email) {
+                    alert('Please fill in all required fields');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    return false;
+                }
+                submitBtn.textContent = 'Booking...';
+                
+                // Send booking data to server
+                fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bookingData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    
+                    // Show success message
+                    const formContainer = form.closest('.booking-form-container');
+                    if (formContainer) {
+                        // Create a new container for the booking confirmation
+                        const confirmationDiv = document.createElement('div');
+                        confirmationDiv.className = 'message bot-message';
+                        confirmationDiv.innerHTML = `
+                            <div class="success-message">
+                                <h4>Booking Confirmed! 🎉</h4>
+                                <p>Thank you, ${bookingData.guest_name || 'valued guest'}! Your booking at <strong>Hotel California</strong> has been confirmed.</p>
+                                <div class="booking-details">
+                                    <p><strong>Booking ID:</strong> ${data.booking_id || 'N/A'}</p>
+                                    <p><strong>Room Type:</strong> ${data.room_type || 'Standard'}</p>
+                                    <p><strong>Check-in:</strong> ${data.check_in}</p>
+                                    <p><strong>Check-out:</strong> ${data.check_out}</p>
+                                    <p><strong>Guests:</strong> ${data.guests || 1}</p>
+                                    <p class="total-amount"><strong>Total Amount:</strong> $${data.total_price || '0'}</p>
+                                </div>
+                                <p>We've sent the booking details to ${bookingData.email}.</p>
+                            </div>
+                        `;
+                        
+                        // Insert the confirmation message after the form
+                        formContainer.parentNode.insertBefore(confirmationDiv, formContainer.nextSibling);
+                        
+                        // Remove the form from the DOM
+                        formContainer.remove();
+                        currentBookingForm = null;
+                        
+                        // Scroll to show the confirmation
+                        confirmationDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                })
+                .catch(error => {
+                    alert(`Booking failed: ${error.message}`);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                });
+                
+                return false;
+            }
+            
+            // Handle Enter key press
+            function handleKeyPress(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                }
+            }
+            
+            // Send message when Enter key is pressed
+            userInput.addEventListener('keypress', handleKeyPress);
+            
+            // Auto-resize input as user types
+            userInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+            
+            // Handle send button click
+            sendButton.addEventListener('click', handleSendMessage);
+            
+            // Handle form submission
+            chatForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleSendMessage();
+            });
+            
+            async function sendMessage(message) {
+                try {
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            message,
+                            session_id: sessionId
+                        }),
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Ensure the response has the required fields
+                    if (!data.intent) {
+                        data.intent = 'fallback';
+                    }
+                    if (data.show_booking_form === undefined) {
+                        data.show_booking_form = false;
+                    }
+                    if (data.show_availability_check === undefined) {
+                        data.show_availability_check = false;
+                    }
+                    
+                    return data;
+                } catch (error) {
+                    console.error('Error:', error);
+                    return { 
+                        response: "I'm sorry, I encountered an error. Please try again.",
+                        intent: 'fallback',
+                        show_booking_form: false,
+                        show_availability_check: false
+                    };
+                }
+            }
+            
+            // Handle sending a message
+            async function handleSendMessage() {
+                const message = userInput.value.trim();
+                if (!message) return;
+                
+                // Add user message to chat
+                addMessage(message, true);
+                userInput.value = '';
+                userInput.style.height = 'auto';
+                
+                // Show typing indicator
+                const typingIndicator = document.getElementById('typing-indicator');
+                typingIndicator.style.display = 'flex';
+                
+                try {
+                    // Send message to server and get response
+                    const data = await sendMessage(message);
+                    console.log('Received response from server:', data);
+                    
+                    // Hide typing indicator
+                    typingIndicator.style.display = 'none';
+                    
+                    // Add bot response to chat
+                    if (data.response) {
+                        addMessage(data.response, false);
+                    } else {
+                        console.warn('No response in server data:', data);
+                    }
+                    
+                    // Debug: Log the received intent and data
+                    console.log('=== DEBUG: Processing response ===');
+                    console.log('Intent:', data.intent);
+                    console.log('Show booking form flag:', data.show_booking_form);
+                    console.log('Show availability check:', data.show_availability_check);
+                    console.log('Full response data:', data);
+                    
+                    // Handle booking form visibility based on backend flags
+                    if (data.show_booking_form) {
+                        console.log('DEBUG: Showing booking form for intent:', data.intent);
+                        try {
+                            // Show booking form with appropriate context based on intent
+                            const isAvailabilityCheck = data.intent === 'check_availability' || data.show_availability_check;
+                            showBookingForm(isAvailabilityCheck);
+                            
+                            // The showBookingForm function now handles all the form setup
+                            // We just need to ensure the form is visible
+                            const formContainer = document.getElementById('booking-form-container');
+                            if (formContainer) {
+                                formContainer.style.display = 'block';
+                                chatMessages.scrollTop = chatMessages.scrollHeight;
+                            }
+                        } catch (error) {
+                            console.error('Error showing booking form:', error);
+                            // If there was an error showing the form, show an error message
+                            addMessage("I'm sorry, I couldn't load the booking form. Please try again.", false);
+                        }
+                    } else {
+                        console.log('DEBUG: Hiding booking form for intent:', data.intent);
+                        hideBookingForm();
+                    }
+                    
+                    // If the bot is asking for dates, show a date picker suggestion
+                    if (data.intent === 'check_availability' && 
+                        (data.response.includes('check-in and check-out dates') || 
+                         data.response.includes('dates are you interested in'))) {
+                        showDatePickerSuggestion();
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    typingIndicator.style.display = 'none';
+                    addMessage("I'm sorry, I encountered an error. Please try again.", false);
+                }
+                
+                scrollToBottom();
+            }
+            
+            // Initialize the chat with a welcome message
+            addMessage("Hello! I'm your Hotel California assistant. How can I help you today?", false);
+            
+            // Show date picker suggestion
+            function showDatePickerSuggestion() {
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const nextWeek = new Date(today);
+                nextWeek.setDate(nextWeek.getDate() + 7);
+                
+                const formatDate = (date) => {
+                    return date.toISOString().split('T')[0];
+                };
+                
+                const dateSuggestions = document.createElement('div');
+                dateSuggestions.className = 'date-suggestions';
+                dateSuggestions.innerHTML = `
+                    <p>Quick select:</p>
+                    <button class="suggestion-btn" data-dates="${formatDate(today)} to ${formatDate(tomorrow)}">
+                        Tonight (${formatDate(today)})
+                    </button>
+                    <button class="suggestion-btn" data-dates="${formatDate(tomorrow)} to ${formatDate(nextWeek)}">
+                        Next week (${formatDate(tomorrow)} - ${formatDate(nextWeek)})
+                    </button>
+                    <button class="suggestion-btn" data-dates="">
+                        Custom dates
+                    </button>
+                `;
+                
+                chatMessages.appendChild(dateSuggestions);
+                
+                // Add event listeners to suggestion buttons
+                dateSuggestions.querySelectorAll('.suggestion-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const dates = this.getAttribute('data-dates');
+                        if (dates) {
+                            userInput.value = dates;
+                            userInput.focus();
+                        }
+                    });
+                });
+                
+                scrollToBottom();
+            }
+        });
+    </script>
+</body>
+</html>

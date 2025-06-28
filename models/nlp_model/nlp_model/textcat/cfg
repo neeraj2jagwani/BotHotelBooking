@@ -1,0 +1,16 @@
+{
+  "labels":[
+    "greeting",
+    "book_room",
+    "check_availability",
+    "cancel_booking",
+    "room_amenities",
+    "check_in_out",
+    "price_inquiry",
+    "thanks",
+    "goodbye",
+    "fallback"
+  ],
+  "threshold":0.0,
+  "positive_label":null
+}

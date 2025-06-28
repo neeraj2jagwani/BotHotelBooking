@@ -1,0 +1,287 @@
+{
+    "greeting": {
+        "patterns": [
+            "Hi",
+            "Hello",
+            "Hey there",
+            "Hi there",
+            "Hello there",
+            "Hey",
+            "Good morning",
+            "Good afternoon",
+            "Good evening",
+            "Greetings",
+            "Hi, how are you?",
+            "Hello, is anyone there?",
+            "Hey, I need some help",
+            "Hi, I have a question",
+            "Hello, good day",
+            "Hey, good morning",
+            "Hi, good afternoon",
+            "Hello, good evening"
+        ],
+        "responses": [
+            "Hello! Welcome to our hotel. How can I assist you today?",
+            "Hi there! How can I help you with your stay?",
+            "Welcome! How may I assist you with your hotel booking?",
+            "Hello! Thank you for contacting us. How can I help you today?",
+            "Hi there! What can I help you with today?"
+        ]
+    },
+    "book_room": {
+        "patterns": [
+            "I'd like to book a room",
+            "Can I make a reservation?",
+            "I want to book a deluxe room",
+            "Book me a standard room for 2 people",
+            "I need to reserve a suite for this weekend",
+            "Can I get a room with a sea view?",
+            "I'd like to make a booking for next week",
+            "I need to book a room",
+            "Please book a room for me",
+            "I want to make a reservation",
+            "Can you help me book a room?",
+            "I'd like to reserve a room",
+            "I need accommodation",
+            "I want to stay at your hotel",
+            "Can I book a room for tonight?",
+            "I need a room for tomorrow",
+            "I'd like to make a hotel reservation",
+            "Can you help me book a stay?",
+            "I want to make a booking",
+            "I need to reserve a room"
+        ],
+        "responses": [
+            "I'd be happy to help you book a room. Could you please provide your check-in and check-out dates?",
+            "I can assist with your room booking. When would you like to stay?",
+            "Let's get your room booked. What type of room would you prefer and for which dates?"
+        ],
+        "entities": {
+            "room_type": ["standard", "deluxe", "suite"],
+            "date": ["today", "tomorrow", "this weekend", "next week"],
+            "guests": ["1", "2", "3", "4"]
+        }
+    },
+    "check_availability": {
+        "patterns": [
+            "Do you have any rooms available for next week?",
+            "Do you have any rooms available for [dates/]?",
+            "Do you have any rooms available for this weekend?",
+            "Is there a deluxe room available to book?",
+            "Are there any rooms available for booking?",
+            "Are there any free rooms to reserve?",
+            "Looking for available rooms to book",
+            "What rooms do you have available for reservation?",
+            "Can you check room availability for booking?",
+            "I want to check room availability for a stay",
+            "Show me available rooms to book",
+            "Do you have any rooms to book?",
+            "Are there any rooms free to book tonight?",
+            "What's available for booking this weekend?",
+            "Looking to book a room, what's available?",
+            "Can I see what rooms are free to book?",
+            "Do you have availability to book for tomorrow night?",
+            "I need to book a room, what do you have?",
+            "What are my room booking options?",
+            "Can you tell me what rooms are available to book?",
+            "I'm interested in booking a room, what's free?",
+            "Do you have any standard rooms available for booking?",
+            "Looking to book a room for [number] people",
+            "Need to book accommodations for [number] guests",
+            "Can you share the rooms availability?",
+            "What rooms are available?",
+            "Show me what rooms you have available",
+            "I'd like to know about room availability",
+            "Can you tell me what rooms are free?",
+            "What's your room availability?",
+            "Do you have rooms available?",
+            "Can I check room availability?",
+            "What's your current room availability?"
+        ],
+        "responses": [
+            "Let me check our availability for you. What dates are you interested in?",
+            "I can check room availability. When would you like to stay?",
+            "I'll look up our room availability. Could you specify your travel dates?"
+        ]
+    },
+    "cancel_booking": {
+        "patterns": [
+            "I want to cancel a booking",
+            "I need to cancel my reservation",
+            "How do I cancel a booking?",
+            "Can I cancel my room?",
+            "I want to cancel my booking for next week",
+            "Cancel my reservation please"
+        ],
+        "responses": [
+            "To cancel your reservation, you can call our customer care number: 99999999999"
+        ]
+    },
+    "room_amenities": {
+        "patterns": [
+            "amenities",
+            "What amenities come with the room?",
+            "What are the in-room facilities?",
+            "What's included in the room?",
+            "What services does the hotel offer?",
+            "Tell me about the hotel amenities",
+            "What features does the room have?",
+            "Is there a [facility] in the hotel?",
+            "What's available in the rooms?",
+            "What comes with my room booking?",
+            "What can I use at the hotel?",
+            "What are the hotel's facilities?",
+            "What recreational facilities are there?",
+            "What's in my room?",
+            "What does the hotel provide?",
+            "What's available for guests to use?",
+            "What services can I use during my stay?",
+            "I want to know the amenities you provide",
+            "Can you tell me about the amenities?",
+            "What amenities are available?",
+            "Tell me about your amenities",
+            "What facilities do you have?",
+            "What are your room amenities?",
+            "What comes with the rooms?",
+            "What's included in the rooms?",
+            "What do the rooms include?",
+            "What features do the rooms have?",
+            "What's in the rooms?",
+            "What comes standard in the rooms?",
+            "What's provided in the rooms?",
+            "What do you provide in the rooms?",
+            "What's part of the room?",
+            "What's included with the room?"
+        ],
+        "responses": [
+            "Here are all the amenities we offer:\n\n- Swimming pool (6 AM - 10 PM)\n- 24-hour fitness center\n- On-site restaurant (7 AM - 11 PM)\n- Full-service spa (9 AM - 9 PM)\n- Business center (24/7)\n- 24-hour room service\n- Lobby bar (4 PM - 12 AM)\n- Laundry service (same-day available)\n- 24/7 concierge service\n\nWould you like more information about any specific amenity?",
+            "Our rooms include free high-speed WiFi, air conditioning, a 40-inch flat-screen TV, a mini-fridge, a safe, a work desk, and a private bathroom with premium toiletries. Would you like to know about any specific amenities?",
+            "Guests can enjoy our outdoor swimming pool, 24-hour fitness center, on-site restaurant, 24-hour room service, business center, and free parking. We also offer daily housekeeping and concierge services.",
+            "All our rooms come with complimentary WiFi, coffee/tea making facilities, an iron and ironing board, a hairdryer, and premium bathroom amenities. Would you like more details about any specific facility?"
+        ]
+    },
+    "specific_facility": {
+        "description": "Handles queries about specific hotel facilities like swimming pool, gym, etc.",
+        "patterns": [
+            "does the room have [amenity]?",
+            "do you have [facility] at the hotel?",
+            "does the hotel have [facility]?",
+            "is there a [facility] in the room?",
+            "can I use the [facility]?",
+            "do your rooms come with [amenity]?",
+            "is [facility] available?",
+            "do you provide [facility]?",
+            "is [facility] included?",
+            "does this room have [amenity]?",
+            "are there [facility] in the rooms?",
+            "do you have [facility] in the hotel?",
+            "can guests use the [facility]?",
+            "is [facility] accessible to guests?",
+            "do you offer [facility] service?",
+            "is there [facility] on site?",
+            "are [facility] available in the hotel?",
+            "does the property have [facility]?",
+            "what about [facility]?",
+            "tell me about your [facility]",
+            "do the rooms come with [facility]?",
+            "are there [facility] in the rooms?",
+            "do you have [facility] service?",
+            "is there [facility] service available?",
+            "can i get [facility] in my room?",
+            "do you have [facility] in the rooms?",
+            "do your rooms have [facility]?",
+            "is [facility] included?",
+            "is there access to [facility]?"
+        ],
+        "responses": [
+            "Yes, we have a [facility] available for all our guests. It's one of our most popular amenities!",
+            "Our [facility] is available for guest use during [operating_hours]. Would you like to know more about it?",
+            "The [facility] is located on the [location] and is open [operating_hours]. It's a great place to relax and unwind.",
+            "Yes, we're proud to offer [facility] to all our guests. It's included with your stay!",
+            "Absolutely! Our [facility] is available for guest use. You can find it on the [location] and it's open [operating_hours].",
+            "Yes, we do provide [facility] service. It's available [operating_hours] on the [location]."
+        ],
+        "slots": {
+            "amenity": ["WiFi", "air conditioning", "TV", "mini-bar", "safe", "work desk", "coffee maker", "hairdryer", "iron", "fridge"],
+            "facility": ["swimming pool", "pool", "gym", "fitness center", "spa", "restaurant", "business center", "room service", "bar", "laundry service", "concierge", "outdoor pool", "indoor pool"],
+            "operating_hours": ["6 AM to 10 PM daily", "24 hours a day", "from 7 AM to 11 PM", "during daylight hours", "from 9 AM to 9 PM"],
+            "location": ["ground floor", "second floor", "next to the lobby", "by the garden", "on the rooftop"]
+        }
+    },
+    "check_in_out": {
+        "patterns": [
+            "What time is check-in?",
+            "When is check-out time?",
+            "Can I check in before 3 PM?",
+            "What's your late check-out policy?",
+            "Is early check-in available?",
+            "What time do I need to check out?",
+            "When can I access my room?",
+            "Until what time can I stay on checkout day?",
+            "Can I get a late checkout?",
+            "What are your check-in and check-out times?",
+            "When is the earliest I can check in?",
+            "What's the latest I can check out?"
+        ],
+        "responses": [
+            "Our standard check-in time is 3:00 PM and check-out is at 12:00 PM. Early check-in and late check-out are subject to availability and may incur additional charges.",
+            "You can check in any time after 3:00 PM, and we ask that you check out by 12:00 PM. Would you like to request early check-in or late check-out?"
+        ]
+    },
+    "price_inquiry": {
+        "patterns": [
+            "How much does a room cost?",
+            "What are your room rates?",
+            "How much for a night?",
+            "What's the price of a deluxe room?",
+            "Do you have any special offers?",
+            "Are there any discounts available?"
+        ],
+        "responses": [
+            "Our room rates vary by season and room type. Standard rooms start at $99 per night, deluxe at $149, and suites at $249.",
+            "We offer competitive rates starting from $99 per night. The price depends on the room type and season."
+        ]
+    },
+    "thanks": {
+        "patterns": [
+            "Thank you",
+            "Thanks a lot",
+            "That's helpful, thanks",
+            "Great, thank you",
+            "I appreciate your help"
+        ],
+        "responses": [
+            "You're welcome! Is there anything else I can help you with?",
+            "Happy to help! Let me know if you need anything else.",
+            "You're welcome! Have a wonderful day!"
+        ]
+    },
+    "goodbye": {
+        "patterns": [
+            "Goodbye",
+            "See you later",
+            "Have a nice day",
+            "Bye",
+            "That's all for now"
+        ],
+        "responses": [
+            "Thank you for choosing our hotel! Have a great day!",
+            "Goodbye! We look forward to serving you again!",
+            "Have a wonderful day! Come back soon!"
+        ]
+    },
+    "fallback": {
+        "patterns": [
+            "I don't understand",
+            "What do you mean?",
+            "Can you rephrase that?",
+            "I'm not sure what you're asking"
+        ],
+        "responses": [
+            "I'm sorry, I didn't understand that. Could you please rephrase your question?",
+            "I'm not sure I follow. Could you provide more details?",
+            "I'm here to help with hotel bookings and information. Could you try asking in a different way?",
+            "I apologize, but I'm not sure how to respond to that. Could you try asking about room bookings, availability, or hotel services?"
+        ]
+    }
+}

@@ -23,7 +23,7 @@ An intelligent hotel booking chatbot with natural language understanding, built 
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/neeraj2jagwani/BotHotelBooking.git
    cd hotel-booking-chatbot
    ```
 

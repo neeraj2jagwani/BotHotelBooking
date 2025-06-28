@@ -64,7 +64,7 @@ class HotelChatbot:
         self.label_encoder = self._load_label_encoder()
     
     def _load_nlp_model(self):
-        model_path = Path("models/nlp_model/nlp_model")
+        model_path = Path("models/nlp_model")
         if model_path.exists():
             print("Loading existing NLP model...")
             try:

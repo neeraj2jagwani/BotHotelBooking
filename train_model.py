@@ -12,7 +12,7 @@ class HotelNLPModel:
         """Initialize the NLP model"""
         self.model_name = model_name
         self.nlp = None
-        self.model_dir = Path("models/nlp_model")
+        self.model_dir = Path("models")
         self.model_dir.mkdir(parents=True, exist_ok=True)
         self.label_encoder = {}
         

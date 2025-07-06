@@ -100,10 +100,3 @@ Try these example queries in the chat:
 
 Edit the responses in `training/train_intents.json` and restart the application.
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.

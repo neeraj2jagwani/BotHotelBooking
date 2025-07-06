@@ -81,12 +81,17 @@ hotel-booking-chatbot/
 
 Try these example queries in the chat:
 
-- "I'd like to book a deluxe room for next weekend"
-- "Do you have any rooms available tomorrow night?"
-- "What time is check-in?"
-- "I need to cancel my reservation"
-- "What amenities does the hotel have?"
-- "How much does a suite cost per night?"
+- "Hello"
+- "What amenities does hotel have?"
+- "Do you have wifi?"
+- "Is there a swimming pool?"
+- "What is check in and out time?"
+- "What is the price of a room?"
+- "I want to check the availability"
+- "I want to cancel my booking"
+- "I want to book a room"
+- "<Insert random text to test robustness>"
+- "Thank you"
 
 ## Customization
 

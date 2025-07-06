@@ -90,7 +90,7 @@ Try these example queries in the chat:
 - "I want to check the availability"
 - "I want to cancel my booking"
 - "I want to book a room"
-- "<Insert random text to test robustness>"
+- "Insert random text to test robustness"
 - "Thank you"
 
 ## Customization

@@ -2,7 +2,7 @@
 
 An intelligent hotel booking chatbot with natural language understanding, built with spaCy for NLP, Flask for the backend, and a modern web interface.
 
-## ✨ Features
+## Features
 
 - **Natural Language Understanding**: Uses spaCy for intent recognition and entity extraction
 - **Interactive Chat Interface**: Clean, responsive UI with message history
@@ -11,7 +11,7 @@ An intelligent hotel booking chatbot with natural language understanding, built 
 - **Database Integration**: Stores bookings and user interactions in MySQL
 - **Machine Learning**: Trained model for understanding various booking-related queries
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -53,7 +53,7 @@ An intelligent hotel booking chatbot with natural language understanding, built 
 5. **Access the chatbot**
    Open your browser and go to `http://localhost:5000`
 
-## 🤖 Training the Model
+## Training the Model
 
 The chatbot uses a machine learning model for natural language understanding. The model is trained on the data in `training/train_intents.json`.
 
@@ -62,7 +62,7 @@ To retrain the model:
 python train_model.py
 ```
 
-## 🛠 Project Structure
+## Project Structure
 
 ```
 hotel-booking-chatbot/
@@ -77,7 +77,7 @@ hotel-booking-chatbot/
     └── index.html        # Chatbot interface
 ```
 
-## 💬 Example Queries
+## Example Queries
 
 Try these example queries in the chat:
 
@@ -88,7 +88,7 @@ Try these example queries in the chat:
 - "What amenities does the hotel have?"
 - "How much does a suite cost per night?"
 
-## 📚 Customization
+## Customization
 
 ### Adding New Intents
 
